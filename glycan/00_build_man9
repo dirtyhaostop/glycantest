@@ -1,0 +1,67 @@
+# load leaprc
+source leaprc.GLYCAM_06j-1
+#source /home/hao/amber/glycam/leaprc_GLYCAM_06j-1_2014-03-14/leaprc.GLYCAM_06j-1
+
+# Man-9
+# 0MA(1-2)2MA(1
+#              \
+#               6)
+# 0MA(1-2)2MA(1-3)VMA(1-6)VMB(1-4)4YB(1-4)4YB-OH
+#                        /
+# 0MA(1-2)2MA(1-2)2MA(1-3)
+
+
+# Build longest linear sequence first: VMB(1-4)4YB(1-4)4YB-OH
+glycan=sequence { ROH 4YB 4YB VMB }
+
+# 0MA(1-2)2MA(1
+#              \
+#               6)
+#                 VMA(1-6)VMB
+set glycan tail glycan.4.O6
+glycan=sequence { glycan VMA }
+set glycan tail glycan.5.O6
+glycan=sequence { glycan 2MA 0MA }
+
+# 0MA(1-2)2MA(1-3)VMA
+set glycan tail glycan.5.O3
+glycan=sequence { glycan 2MA 0MA }
+
+#                         VMB(1-4)4YB(1-4)4YB-OH
+#                        /
+# 0MA(1-2)2MA(1-2)2MA(1-3)
+set glycan tail glycan.4.O3
+glycan=sequence { glycan 2MA 2MA 0MA }
+
+# Reset torsion angles
+impose glycan {3} { {H1 C1 O4 C4 60.0} }
+impose glycan {3} { {C1 O4 C4 H4 0.0} }
+impose glycan {4} { {H1 C1 O4 C4 60.0} }
+impose glycan {4} { {C1 O4 C4 H4 0.0} }
+impose glycan {5} { {H1 C1 O6 C6 -60.0} } # 1-6 Link from (5) to (4), Phi
+impose glycan {5} { {C1 O6 C6 C5 180.0} } # 1-6 Link from (5) to (4), Psi
+impose glycan {4} { {O6 C6 C5 O5 60.0} } # 1-6 Link from (5) to (4), Chi
+impose glycan {10} { {H1 C1 O3 C3 -60.0} }
+impose glycan {10} { {C1 O3 C3 H3 0.0} }
+impose glycan {6} { {H1 C1 O6 C6 -60.0} }
+impose glycan {6} { {C1 O6 C6 C5 180.0} }
+impose glycan {5} { {O6 C6 C5 O5 -60.0} }
+impose glycan {8} { {H1 C1 O3 C3 -60.0} }
+impose glycan {8} { {C1 O3 C3 H3 0.0} }
+impose glycan {7} { {H1 C1 O2 C2 -60.0} }
+impose glycan {7} { {C1 O2 C2 H2 0.0} }
+impose glycan {9} { {H1 C1 O2 C2 -60.0} }
+impose glycan {9} { {C1 O2 C2 H2 0.0} }
+impose glycan {11} { {H1 C1 O2 C2 -60.0} }
+impose glycan {11} { {C1 O2 C2 H2 0.0} }
+impose glycan {12} { {H1 C1 O2 C2 -60.0} }
+impose glycan {12} { {C1 O2 C2 H2 0.0} }
+
+# Save top and crd
+saveamberparm glycan man9.top man9.crd
+
+# Save pdb
+savepdb glycan man9.pdb
+
+# Leave tleap
+quit

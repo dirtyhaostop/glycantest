@@ -1,0 +1,7 @@
+README.md
+setup.py
+glycantool.egg-info/PKG-INFO
+glycantool.egg-info/SOURCES.txt
+glycantool.egg-info/dependency_links.txt
+glycantool.egg-info/requires.txt
+glycantool.egg-info/top_level.txt
