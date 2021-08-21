@@ -8,7 +8,6 @@ setup(name='glycantool',
       author_email='yizaochen@gmail.com',
       license='MIT',
       install_requires=[
-          'numpy',
-          'scipy'
+          'numpy'
       ]
       )

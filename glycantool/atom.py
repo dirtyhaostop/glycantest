@@ -13,6 +13,8 @@ class Atom:
         self.tempFactor = float(data[9])
         if segid_exist:
             self.segid = data[10]
+        else:
+            self.segid = None
 
     def set_resid(self, resid):
         self.resid = int(resid)
@@ -37,9 +39,16 @@ class Atom:
             str1 = f'{self.record_name:4s}{self.serial:>7d}  {self.name:<3s}'
         else:
             str1 = f'{self.record_name:4s}{self.serial:>7d} {self.name:4s}'
-        str2 = f' {self.resname:<4s}  {self.resid:>3d}'
+        if self.resid > 999:
+            str2 = f' {self.resname:<4s} {self.resid:>4d}'
+        else:
+            str2 = f' {self.resname:<4s}  {self.resid:>3d}'
         str3 = f'{self.x:>12.3f} {self.y:>7.3f} {self.z:>7.3f}'
-        str4 = f'  1.00 {self.tempFactor:>6.2f}      '
+
+        if self.segid is not None:
+            str4 = f'  1.00 {self.tempFactor:>6.2f}{self.segid:>9s}'
+        else:
+            str4 = f'  1.00 {self.tempFactor:>6.2f}      '
         return str1 + str2 + str3 + str4
 
     def __repr__(self):
