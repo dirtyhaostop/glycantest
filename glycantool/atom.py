@@ -1,3 +1,4 @@
+
 class Atom:
     def __init__(self, data, segid_exist):
         self.record_name = data[0]
